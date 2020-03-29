@@ -1,5 +1,5 @@
 class ResistorColorDuo
-  @colors = {
+  @@colors = {
     'black' => 0,
     'brown' => 1,
     'red' => 2,
@@ -14,7 +14,7 @@ class ResistorColorDuo
 
   def self.value(colors)
     colors.take(2).reduce(0) do |acc, color|
-      acc * 10 + @colors[color]
+      acc * 10 + @@colors[color]
     end
   end
 end
