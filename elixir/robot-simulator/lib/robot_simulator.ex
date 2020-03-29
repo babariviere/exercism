@@ -1,6 +1,8 @@
 defmodule RobotSimulator do
   @directions [:north, :east, :south, :west]
 
+  defguardp is_position(x, y) when is_integer(x) and is_integer(y)
+
   @doc """
   Create a Robot Simulator given an initial direction and position.
 
@@ -9,9 +11,7 @@ defmodule RobotSimulator do
   @spec create(direction :: atom, position :: {integer, integer}) :: any
   def create(direction \\ :north, position \\ {0, 0})
 
-  def create(direction, position)
-      when direction in @directions and tuple_size(position) == 2 and
-             is_integer(elem(position, 0)) and is_integer(elem(position, 1)) do
+  def create(direction, {x, y} = position) when direction in @directions and is_position(x, y) do
     %{direction: direction, position: position}
   end
 
@@ -55,17 +55,13 @@ defmodule RobotSimulator do
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
   @spec direction(robot :: any) :: atom
-  def direction(robot) do
-    robot.direction
-  end
+  def direction(%{direction: direction}), do: direction
 
   @doc """
   Return the robot's position.
   """
   @spec position(robot :: any) :: {integer, integer}
-  def position(robot) do
-    robot.position
-  end
+  def position(%{position: position}), do: position
 
   defp turn_left(direction) do
     idx = Enum.find_index(@directions, fn x -> x == direction end)
