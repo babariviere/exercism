@@ -8,7 +8,7 @@ defmodule ListOps do
   @spec count(list) :: non_neg_integer
   def count(list), do: do_count(list, 0)
 
-  defp do_count([h | t], res), do: do_count(t, res + 1)
+  defp do_count([_h | t], res), do: do_count(t, res + 1)
   defp do_count([], res), do: res
 
   @spec reverse(list) :: list
