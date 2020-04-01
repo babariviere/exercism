@@ -1,7 +1,6 @@
 module Pangram (isPangram) where
 
 import Data.Char
-import Data.List
 
 isPangram :: String -> Bool
-isPangram text = null $ ['a'..'z'] \\ map toLower text
+isPangram text = all (flip elem $ map toLower text) ['a'..'z']
