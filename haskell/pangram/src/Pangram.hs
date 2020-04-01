@@ -4,4 +4,4 @@ import Data.Char
 import Data.List
 
 isPangram :: String -> Bool
-isPangram = (==26) . length . nub . filter (`elem` ['a'..'z']) . map toLower
+isPangram text = ['a'..'z'] \\ map toLower text == []
