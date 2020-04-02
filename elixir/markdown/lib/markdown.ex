@@ -15,9 +15,8 @@ defmodule Markdown do
     # Refactor: split function call with pipe
     m
     |> String.split("\n")
-    |> Enum.map(&process/1)
-    |> Enum.join()
-    |> patch
+    |> Enum.map_join(&process/1)
+    |> patch_lists()
   end
 
   # Refactor: Handle case per function instead in one chunk
@@ -106,7 +105,7 @@ defmodule Markdown do
     end
   end
 
-  defp patch(text) do
+  defp patch_lists(text) do
     # Refactor: avoid nested calls
     text
     |> String.replace("<li>", "<ul><li>", global: false)
