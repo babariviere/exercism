@@ -57,7 +57,7 @@ defmodule BankAccount do
   end
 
   # Server's loop
-  defp loop(%{balance: balance, open: open} = state) do
+  defp loop(state) do
     receive do
       {:get, caller, ref} ->
         handle_get(state, caller, ref)
