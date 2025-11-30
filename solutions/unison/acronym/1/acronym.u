@@ -1,0 +1,9 @@
+acronym.abbreviate : Text -> Text
+acronym.abbreviate test =
+    firstLetter val =
+        Text.toCharList val |>
+        List.find (c -> is Class.letter c) |>
+        Optional.map Char.toUppercase
+    splitOn (Class.whitespace Class.+ (Class.fromChar ?-)) test |>
+    List.filterMap firstLetter |>
+    Text.fromCharList
