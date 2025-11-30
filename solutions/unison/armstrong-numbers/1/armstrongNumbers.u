@@ -1,0 +1,11 @@
+armstrongNumbers.isArmstrongNumber : Nat -> Boolean
+armstrongNumbers.isArmstrongNumber number =
+  digits acc n =
+    v = n % 10
+    acc' = v List.+: acc
+    n' = n / 10
+    if n' != 0 then digits acc' n' else acc'
+  d = digits [] number
+  pow = List.size d
+  res = List.foldLeft (a b -> a + (Nat.pow b pow)) 0 d
+  res == number
