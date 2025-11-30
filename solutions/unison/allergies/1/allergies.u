@@ -1,0 +1,28 @@
+allergies.items : Map Text Nat
+allergies.items =
+  Map.fromList [
+    ("eggs", 1),
+    ("peanuts", 2),
+    ("shellfish", 4),
+    ("strawberries", 8),
+    ("tomatoes", 16),
+    ("chocolate", 32),
+    ("pollen", 64),
+    ("cats", 128)
+  ]
+
+allergies.isSet : Nat -> Nat -> Boolean
+allergies.isSet a b = (Nat.and a b) == a
+
+allergies.allergicTo : Text -> Nat -> Boolean
+allergies.allergicTo allergen score =
+  allergy = Map.get allergen items
+  Optional.map (c -> isSet c score) allergy |>
+  Optional.getOrElse false
+
+allergies.list : Nat -> [Text]
+allergies.list score =
+  iter = cases (allergen, value) ->
+    if (isSet value score) then Some allergen else None
+  Map.toList items |>
+  List.filterMap iter
